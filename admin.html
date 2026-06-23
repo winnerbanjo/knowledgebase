@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nile Support CMS & Admin Console</title>
+  <meta name="description" content="Nile Support Portal Content Management System. Administer documentation and guides.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="container nav-bar">
+      <a href="index.html" class="logo-wrapper" id="nav-logo">
+        <div class="logo-text-stack">
+          <div class="logo-nile">nile</div>
+          <div class="logo-africa">africa</div>
+        </div>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Live Help Center</a>
+        <button class="nav-link" id="nav-logout-btn" style="background:none; border:none; cursor:pointer; display:none;">Logout</button>
+        
+        <!-- Dark/Light Theme Switcher -->
+        <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
+          <svg viewBox="0 0 24 24" id="theme-sun-icon" style="display: none;">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" id="theme-moon-icon">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.6-.1 1.2.3 1.3.9.1.6-.2 1.2-.8 1.4-3.6 1.3-6 4.7-6 8.5 0 4.4 3.6 8 8 8 3.8 0 7.2-2.4 8.5-6 .2-.6.8-.9 1.4-.8.6.1 1 .7.9 1.3C21.2 18.2 17.1 22 12.3 22z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Container Screen -->
+  <section class="container login-container" id="admin-login-screen">
+    <div class="login-card">
+      <h2>Support Admin Portal</h2>
+      <p>Log in to manage knowledge base documentation.</p>
+      
+      <div class="login-error" id="admin-login-error">
+        Incorrect email or passcode. Please try again.
+      </div>
+      
+      <form class="login-form" id="admin-login-form">
+        <div class="form-group">
+          <label for="admin-email-input">Email Address</label>
+          <input type="email" id="admin-email-input" placeholder="admin@nile.ng" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="admin-passcode-input">Access Passcode</label>
+          <input type="password" id="admin-passcode-input" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="admin-btn-save" style="margin-top: 0.5rem; width: 100%;">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Admin Workspace View (hidden by default) -->
+  <section class="container admin-hidden" id="admin-workspace-view" style="padding-top: 2rem; padding-bottom: 6rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <h1 class="hero-title" style="font-size: 2.2rem; text-align: left; margin: 0;">Support CMS <span>Console</span></h1>
+      <button class="admin-btn-reset" id="btn-reset-db" style="margin-top: 0;">Restore Defaults</button>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="admin-dashboard-layout">
+      <!-- Stats Sidebar Card -->
+      <aside class="admin-stats-card">
+        <h3>Metrics Overview</h3>
+        <p>Monitor help article volumes and overall helpfulness feedback ratios logged by merchants.</p>
+        
+        <div class="admin-metrics-grid">
+          <div class="metric-box">
+            <span class="metric-val" id="admin-total-articles-count">0</span>
+            <span class="metric-lbl">Total Articles</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-val" id="admin-helpful-rate">100%</span>
+            <span class="metric-lbl">Helpful Rating</span>
+          </div>
+        </div>
+      </aside>
+      
+      <!-- Workspace Operations -->
+      <main class="admin-workspace-pane">
+        <!-- Create/Edit Form -->
+        <div class="admin-form-card">
+          <h4 id="form-action-title">Create New Support Article</h4>
+          
+          <form id="admin-article-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <input type="hidden" id="form-article-id">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="form-title">Article Title</label>
+                <input type="text" id="form-title" placeholder="e.g., Setting up Paystack Gateways" required autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="form-category">Category Group</label>
+                <select id="form-category" required>
+                  <option value="setup">Account & Setup</option>
+                  <option value="storefront">Storefront & Design</option>
+                  <option value="products">Product Inventory</option>
+                  <option value="payments">Payments & Gateway</option>
+                  <option value="shipping">Shipping & Locations</option>
+                  <option value="orders">Orders & Invoicing</option>
+                  <option value="customers">Customer Management</option>
+                  <option value="troubleshooting">Troubleshooting & Support</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="form-readtime">Estimated Read Time</label>
+                <input type="text" id="form-readtime" placeholder="e.g., 4 min read" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="form-keywords">Search Keywords (comma separated)</label>
+                <input type="text" id="form-keywords" placeholder="e.g., paystack, payment, gateway, card" autocomplete="off">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="form-screenshot">Dashboard Screenshot Preview URL</label>
+                <input type="url" id="form-screenshot" placeholder="e.g., https://example.com/screenshot.jpg" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="form-video">Walkthrough Video URL</label>
+                <input type="url" id="form-video" placeholder="e.g., https://vimeo.com/12345678" autocomplete="off">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-body">Article Body (Supports Rich HTML)</label>
+              
+              <!-- Editor Formatting & Image Upload Toolbar -->
+              <div class="editor-toolbar">
+                <button type="button" class="toolbar-btn" id="tb-bold" title="Bold"><b>B</b></button>
+                <button type="button" class="toolbar-btn" id="tb-italic" title="Italic"><i>I</i></button>
+                <button type="button" class="toolbar-btn" id="tb-underline" title="Underline"><u>U</u></button>
+                <div class="toolbar-separator"></div>
+                <button type="button" class="toolbar-btn" id="tb-h2" title="Heading 2">H2</button>
+                <button type="button" class="toolbar-btn" id="tb-h3" title="Heading 3">H3</button>
+                <button type="button" class="toolbar-btn" id="tb-paragraph" title="Paragraph">¶</button>
+                <div class="toolbar-separator"></div>
+                <button type="button" class="toolbar-btn" id="tb-ul" title="Bullet List">• List</button>
+                <button type="button" class="toolbar-btn" id="tb-ol" title="Numbered List">1. List</button>
+                <button type="button" class="toolbar-btn" id="tb-table" title="Insert Table">田 Table</button>
+                <div class="toolbar-separator"></div>
+                <button type="button" class="toolbar-btn primary" id="tb-image" title="Upload & Insert Image">📷 Upload Image</button>
+                
+                <!-- Hidden File Input for Image Upload -->
+                <input type="file" id="editor-image-upload" accept="image/*" style="display: none;">
+              </div>
+              
+              <textarea id="form-body" rows="12" placeholder="Write step-by-step guidelines. You can use HTML formatting tags, or click the toolbar buttons above to insert elements." required></textarea>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="admin-btn-save" id="btn-save-article">Save & Publish</button>
+              <button type="button" class="admin-btn-cancel" id="btn-cancel-edit" style="display: none;">Cancel</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Articles Inventory Table -->
+        <div class="admin-table-card">
+          <h4>Active Documentation Catalog</h4>
+          <div class="admin-table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Article Title</th>
+                  <th>Category</th>
+                  <th>Keywords</th>
+                  <th>Helpfulness Rating</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-articles-tbody">
+                <!-- populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-layout" style="justify-content: center; text-align: center;">
+      <div class="footer-brand">
+        <div class="logo-text-stack" style="width: fit-content; margin: 0 auto 1rem auto;">
+          <div class="logo-nile">nile</div>
+          <div class="logo-africa">africa</div>
+        </div>
+        <p>Providing seamless digital commerce infrastructure for modern African merchants.</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">© 2026 Nile Inc. All rights reserved. Support Portal Management Console.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Admin Script Logic -->
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
