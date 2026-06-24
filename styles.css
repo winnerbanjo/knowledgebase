@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Colors - Default Light Mode (White Background) */
@@ -109,35 +109,30 @@ header {
 }
 
 .logo-text-stack {
-  background-color: var(--accent-green);
-  color: #ffffff !important;
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
+  color: var(--accent-green) !important;
   display: flex;
   flex-direction: column;
-  line-height: 0.95;
+  line-height: 0.85;
   font-family: 'Outfit', sans-serif;
   letter-spacing: -0.03em;
   text-transform: lowercase;
-  box-shadow: 0 4px 12px rgba(45, 111, 81, 0.15);
   transition: var(--transition-smooth);
 }
 
 .logo-wrapper:hover .logo-text-stack {
-  background-color: var(--accent-green-hover);
+  opacity: 0.8;
   transform: translateY(-1px);
 }
 
 .logo-nile {
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 300;
 }
 
 .logo-africa {
-  font-size: 0.92rem;
-  font-weight: 500;
-  margin-top: 0.05rem;
-  opacity: 0.95;
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-top: -0.05rem;
 }
 
 .nav-links {
