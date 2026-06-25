@@ -4,8 +4,8 @@
   "description": "Nile Merchant Dashboard support portal and knowledge base website.",
   "main": "index.html",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node api/server.js",
+    "dev": "node api/server.js"
   },
   "keywords": [
     "nile",
