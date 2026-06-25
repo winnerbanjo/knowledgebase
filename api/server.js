@@ -13,7 +13,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static file serving
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
@@ -46,7 +46,7 @@ async function seedDatabase() {
     const count = await Article.countDocuments();
     if (count === 0) {
       console.log('Article collection is empty. Seeding defaults from data.js...');
-      const { defaultArticles } = require('../data.js');
+      const { defaultArticles } = require('../public/data.js');
       await Article.insertMany(defaultArticles);
       console.log(`Database seeded with ${defaultArticles.length} default guides.`);
     }
@@ -139,7 +139,7 @@ app.delete('/api/articles/:id', async (req, res) => {
 app.post('/api/reset', async (req, res) => {
   try {
     await Article.deleteMany({});
-    const { defaultArticles } = require('../data.js');
+    const { defaultArticles } = require('../public/data.js');
     await Article.insertMany(defaultArticles);
     console.log('Database successfully reset to default June 2026 guidelines.');
     res.json({ success: true, message: 'Database successfully reset to defaults' });
@@ -173,11 +173,11 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 
 // Serve frontend main pages explicitly if requested directly
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'admin.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
 });
 
 // Start Server
