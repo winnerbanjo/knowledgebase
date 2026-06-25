@@ -316,53 +316,70 @@ function handleFeedback(isHelpful) {
 }
 
 // Search Logic
+let searchTimeout = null;
+
 function handleSearch(query) {
-  state.searchQuery = query.trim().toLowerCase();
+  const cleanedQuery = query.trim().toLowerCase();
   
-  if (!state.searchQuery) {
+  if (!cleanedQuery) {
+    if (searchTimeout) clearTimeout(searchTimeout);
+    state.searchQuery = '';
     el.searchResultsBox.classList.remove('active');
     return;
   }
   
-  // Keyword scoring match
-  const filtered = dbArticles.map(art => {
-    let score = 0;
-    if (art.title.toLowerCase().includes(state.searchQuery)) score += 10;
-    if (art.keywords.toLowerCase().includes(state.searchQuery)) score += 5;
-    return { ...art, score };
-  })
-  .filter(art => art.score > 0)
-  .sort((a, b) => b.score - a.score);
-  
-  // Render search list dropdown
-  el.searchResultsBox.innerHTML = '';
-  if (filtered.length > 0) {
-    filtered.forEach(art => {
-      const item = document.createElement('div');
-      item.className = 'search-result-item';
-      item.innerHTML = `
-        <div class="search-result-title">
-          ${art.title} <span>${art.categoryName}</span>
-        </div>
-        <div class="search-result-snippet">
-          Configure ${art.title.toLowerCase()} settings for your Nile merchant store.
-        </div>
-      `;
-      item.addEventListener('click', () => {
-        el.searchInput.value = '';
-        el.searchResultsBox.classList.remove('active');
-        openArticle(art.id);
-      });
-      el.searchResultsBox.appendChild(item);
-    });
-  } else {
-    const noRes = document.createElement('div');
-    noRes.className = 'search-no-results';
-    noRes.textContent = `No help articles found matching "${query}"`;
-    el.searchResultsBox.appendChild(noRes);
-  }
-  
+  // Show spinner immediately to represent AJAX loading state
+  el.searchResultsBox.innerHTML = `
+    <div class="search-loading-box">
+      <div class="search-spinner"></div>
+      <span>Searching Nile database...</span>
+    </div>
+  `;
   el.searchResultsBox.classList.add('active');
+  
+  // Debounce the search processing to simulate real AJAX database lookup
+  if (searchTimeout) clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    state.searchQuery = cleanedQuery;
+    
+    // Keyword scoring match
+    const filtered = dbArticles.map(art => {
+      let score = 0;
+      if (art.title.toLowerCase().includes(state.searchQuery)) score += 10;
+      if (art.keywords.toLowerCase().includes(state.searchQuery)) score += 5;
+      return { ...art, score };
+    })
+    .filter(art => art.score > 0)
+    .sort((a, b) => b.score - a.score);
+    
+    // Render results
+    el.searchResultsBox.innerHTML = '';
+    if (filtered.length > 0) {
+      filtered.forEach(art => {
+        const item = document.createElement('div');
+        item.className = 'search-result-item';
+        item.innerHTML = `
+          <div class="search-result-title">
+            ${art.title} <span>${art.categoryName}</span>
+          </div>
+          <div class="search-result-snippet">
+            Configure ${art.title.toLowerCase()} settings for your Nile merchant store.
+          </div>
+        `;
+        item.addEventListener('click', () => {
+          el.searchInput.value = '';
+          el.searchResultsBox.classList.remove('active');
+          openArticle(art.id);
+        });
+        el.searchResultsBox.appendChild(item);
+      });
+    } else {
+      const noRes = document.createElement('div');
+      noRes.className = 'search-no-results';
+      noRes.textContent = `No help articles found matching "${query}"`;
+      el.searchResultsBox.appendChild(noRes);
+    }
+  }, 350); // 350ms delay for premium database loading feel
 }
 
 
