@@ -1,18 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/server.js": {
+    "server.js": {
       "includeFiles": "public/**"
     }
   },
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/server"
-    },
-    {
-      "source": "/admin",
-      "destination": "/admin.html"
+      "source": "/(.*)",
+      "destination": "/server.js"
     }
   ]
 }

@@ -4,3 +4,5 @@ node_modules 2
 .env
 *.log
 .DS_Store
+.vercel
+.env*
