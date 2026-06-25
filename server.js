@@ -181,6 +181,10 @@ app.get('/admin', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`Nile Support Portal server listening on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Nile Support Portal server listening on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
